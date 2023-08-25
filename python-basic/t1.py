@@ -94,9 +94,33 @@ max(alist)
 sum(alist)
 set(alist)  # 返回一个集合，集合的特性是去掉重复元素
 
-# 列表解析：快速从 range object 生成 list
+# 列表解析：根据已有列表，高效创建新列表的方式
+#   语法：
+#       [expression for iter_val in iterable]
+#       [expression for iter_val in iterable if cond_expr]
+#
+# 快速从 range object 生成 list
 blist = [value ** 2 for value in range(1, 5)]
 print(blist)  # [1, 4, 9, 16]
+
+
+# 列表可以直接相加
+list1 = [1, 2, 3]
+list2 = [1, 2, 4]
+list = list1+list2  # [1, 2, 3, 1, 2, 4]
+
+# join 操作，需要字符串
+print('-'.join([str(v) for v in list1]))
+
+# count 统计
+list1.count(1)
+
+# 使用 enumerate() 类型，将 list 转换成带索引的，从 0 开始
+for index, value in enumerate(list1):
+    print(index, '-', value)
+
+# 变量的类型
+typename = type(list1)
 
 ############################################## 切片 slice #####################################
 
@@ -249,3 +273,25 @@ while current_number <= 5:
 
 ############################################## 逻辑运算符 #####################################
 # and, or,
+
+############################################## 常量 #####################################
+MAX_LOG_OUTPUT = 6000
+
+############################################## sprintf 风格 #####################################
+# python 中没有相应的函数，使用的是 % 来处理
+# 格式规则是通用的
+
+sprintf_str = ('I am %s, age %d, weight %.2f kg') % ('rao', 12, 50)
+# I am rao, age 12, weight 50.00 kg
+
+print(sprintf_str)
+
+############################################## None #####################################
+# None是一个特殊的常量。
+# None和False不同。
+# None不是0。
+# None不是空字符串。
+# None和任何其他的数据类型比较永远返回False。
+# None有自己的数据类型NoneType。
+# 你可以将None复制给任何变量，但是你不能创建其他NoneType对象。
+# 类似于C中的 NULL，和Go中的 Nil

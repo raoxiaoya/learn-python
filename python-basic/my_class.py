@@ -24,6 +24,8 @@ print("--------------------------------------")
 
 
 class Keji(Dog):
+    info = 'info...'
+
     def __init__(self, name, age):
         super().__init__(name, age)
 

@@ -1,7 +1,10 @@
-# 操作文件
+'''
+操作文件
+'''
 
 
 # 手动关闭文件，存在的问题就是中途出bug导致文件没有关闭
+import csv
 fo = open('files/data.txt')
 contents = fo.read()
 print(contents.rstrip())  # read读出来的内容最后会多出一个空字符串，需要处理
@@ -55,5 +58,21 @@ try:
 except FileNotFoundError:
     msg = "Sorry, the file " + filename + " does not exist."
     print(msg)
+
+print("--------------------------------------")
+
+# 读取 csv 文件
+# import csv
+
+
+with open('files/data.csv') as of:
+    reader = csv.reader(of)
+
+    # next 从迭代器中取出一个元素，具体到此处，每一个元素是一行。
+    # 每次调用 next，游标会下移一个
+    # 而 csv 每一行是由逗号分隔的数据，因此 line 是一个列表类型
+    # ['rao', '12', '170', '60']
+    line = next(reader)
+    print(line)
 
 print("--------------------------------------")
