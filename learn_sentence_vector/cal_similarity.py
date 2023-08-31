@@ -15,7 +15,7 @@ from sentence_transformers import InputExample, evaluation, losses
 from sentence_transformers import SentenceTransformer
 import numpy as np
 from tqdm import tqdm
-import faiss
+import faiss  # 只有 MacOS 和 Linux 版本
 
 # Define the model. Either from scratch of by loading a pre-trained model
 model = SentenceTransformer('distiluse-base-multilingual-cased')
