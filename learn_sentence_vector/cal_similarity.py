@@ -15,7 +15,7 @@ from sentence_transformers import InputExample, evaluation, losses
 from sentence_transformers import SentenceTransformer
 import numpy as np
 from tqdm import tqdm
-import faiss                   # make faiss available
+import faiss
 
 # Define the model. Either from scratch of by loading a pre-trained model
 model = SentenceTransformer('distiluse-base-multilingual-cased')
@@ -32,7 +32,7 @@ def load_data(filename):
                 text1, text2, label = l.strip().split(',')
                 D.append((text1, text2, int(label)))
             except ValueError:
-                _
+                pass
     return D
 
 
@@ -85,7 +85,7 @@ def f1():
         sentences1, sentences2, scores)
     model.evaluate(evaluator)
 
-# 0.68723840499831
+    # 0.68723840499831
 
 
 # 模型准确度的测评
@@ -99,11 +99,10 @@ def f2():
         sentences1, sentences2, scores)
     model.evaluate(evaluator)
 
-# 0.8906211331111515
+    # 0.8906211331111515
 
 
 # 测试模型获取向量
-
 def f3():
     model = SentenceTransformer('./two_albert_similarity_model')
 
@@ -118,7 +117,6 @@ def f3():
 
 
 # 模型向量召回
-
 def f4():
     ALL = []
     for i in tqdm(test_data):
@@ -135,9 +133,7 @@ def f4():
     index.add(DT)                  # add vectors to the index
     print(index.ntotal)
 
-
-# 查询最相似的文本
-def f5():
+    # 查询最相似的文本
     k = 10                          # we want to see 10 nearest neighbors
     aim = 220
     D, I = index.search(DT[aim:aim+1], k)  # sanity check
@@ -145,10 +141,7 @@ def f5():
     print(D)
     print([ALL[i]for i in I[0]])
 
-
-# 先获取特征再查询最相似的文本
-
-def f6():
+    # 先获取特征再查询最相似的文本
     query = [model.encode('1万元的每天利息是多少')]
     query = np.array(query, dtype=np.float32)
     D, I = index.search(query, 10)  # sanity check
