@@ -1,6 +1,13 @@
 class Dog():
     """一次模拟小狗的简单尝试"""
 
+    # 公有变量
+    publicAttr = 'xiao'
+    # 保护变量
+    _protectedAttr = 12
+    # 私有变量
+    __privateAttr = 'rao'
+
     def __init__(self, name, age):
         """初始化属性name和age"""
         self.name = name
@@ -13,6 +20,19 @@ class Dog():
     def roll_over(self):
         """模拟小狗被命令时打滚"""
         print(self.name.title() + " rolled over!")
+
+    @classmethod
+    def class_method(cls):
+        '''类方法'''
+        print('类方法')
+
+    @staticmethod
+    def static_method():
+        '''静态方法'''
+        print('静态方法')
+
+    def __del__(self):
+        '''析构函数'''
 
 ##########################################################
 # __init__ 构造函数，self第一个参数
@@ -46,3 +66,15 @@ class Hashiqi(Dog):
     def eat(self):
         """哈士奇吃东西"""
         print("Hashiqi "+self.name.title() + " is now eatting.")
+
+    def __enter__(self):
+        print('上下文管理器-enter')
+
+    def __exit__(self, *args):
+        print('上下文管理器-exit')
+
+
+'''
+上下文管理器：一个类实现了 __enter__ 和 __exit__，就满足了上下文管理器，就可以使用 with 语句来调用，比如我们打开文件时的操作，
+在开始的时候会调用 __enter__ ，在结束的时候会调用 __exit__，分别用来做初始化操作和资源清理操作。
+'''

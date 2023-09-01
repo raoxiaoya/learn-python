@@ -263,6 +263,8 @@ conda是用来安装conda package，虽然大部分conda包是python的，但它
 ### 安装 Tensorflow2.4  
 tensorflow有两个版本：CPU，GPU；分别对应的是 tensorflow 和 tensorflow-gpu，后者需要安装CUDA 和 CUDNN。  
 
+各个版本和依赖信息参考地址：https://tensorflow.google.cn/install/source_windows#cpu
+
 ```bash
 1、创建环境并激活
 conda create -n tensorflow2.4 python==3.8
@@ -286,6 +288,23 @@ pip install tensorflow==2.4
 2023-08-24 16:03:32.985731: W tensorflow/stream_executor/platform/default/dso_loader.cc:60] Could not load dynamic library 'cudart64_110.dll'; dlerror: cudart64_110.dll not found
 2023-08-24 16:03:32.991074: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
 ```
+
+### 安装 Tensorflow-gpu2.4 
+
+各个版本和依赖信息参考地址：https://tensorflow.google.cn/install/source_windows#gpu
+
+```bash
+
+conda create -n tensorflow-gpu2.4 python==3.8
+
+conda activate tensorflow-gpu2.4
+
+pip install numpy matplotlib Pillow scikit-learn pandas
+
+pip install tensorflow-gpu==2.4 
+
+```
+
 
 ### 电子书
 Python - 100天从新手到大师  
