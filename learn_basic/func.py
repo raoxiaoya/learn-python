@@ -10,6 +10,7 @@
 
 
 
+from typing import List, Dict, Union, Iterable, Any
 import plot.poltmet as pm
 import module1
 def greet_user():
@@ -148,5 +149,35 @@ print("--------------------------------------")
 # 比如要导入某个目录下的文件，plot/poltmet.py
 # import plot.poltmet as pm
 pm.show()
+
+print("--------------------------------------")
+
+#############################################################
+
+'''
+函数形参指定数据类型，一方面限制参数类型，另一方面，编辑器才有对应类型的语法提示
+
+复合类型需要 from typing import List, Dict, Union
+
+Union 表示多种数据类型
+
+有默认值的放在后面
+
+Dict[str, Any] 表示key是str, val 是任意类型
+
+任意类型使用 Any
+object 和 Any 是有区别的，使用 object 示意一个值可以类型安全地兼容任何类型，使用 Any 示意一个值地类型是动态定义的
+
+Optional[int] 等价于 Union[int, None]，Optional[] 里面只能写一个数据类型
+
+也可以指定任意class作为类型
+
+使用 -> str 来定义返回值类型
+'''
+
+
+def f22(name: str, age: int, lst: List[str], ps: Dict[str, Any], dos: Iterable, ban: Union[str, int] = None, sit: bool = False) -> str:
+    return
+
 
 print("--------------------------------------")

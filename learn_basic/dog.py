@@ -8,6 +8,8 @@ class Dog():
     # 私有变量
     __privateAttr = 'rao'
 
+    prop = {'device': 'cpu'}
+
     def __init__(self, name, age):
         """初始化属性name和age"""
         self.name = name
@@ -23,16 +25,50 @@ class Dog():
 
     @classmethod
     def class_method(cls):
-        '''类方法'''
+        '''
+        类方法
+        需要 cls
+        '''
         print('类方法')
 
     @staticmethod
     def static_method():
-        '''静态方法'''
+        '''
+        静态方法
+        不需要 self
+        使其可以再不创建类实例的情况下调用方法，跟普通函数一样
+        '''
         print('静态方法')
+
+    @property
+    def device(self) -> str:
+        '''
+        只读属性
+        我们可以使用@property装饰器来创建只读属性，@property装饰器会将方法
+        转换为相同名称的只读属性,可以与所定义的属性配合使用，这样可以防止属性
+        被修改，注意这里不能再使用 self.device 这会导致递归调用。所以这里定
+        义的属性不能是 Dog 的直接属性。
+
+        dog = Dog('a', 10)
+        print(dog.device)
+        '''
+        return self.prop['device']
+
+    @device.setter
+    def device(self, value):
+        '''
+        使用装饰器来为只读属性 device 赋值
+
+        dog = Dog('a', 10)
+        print(dog.device)
+        dog.device = 'gpu'
+        print(dog.device)
+        '''
+        self.prop['device'] = value
 
     def __del__(self):
         '''析构函数'''
+
 
 ##########################################################
 # __init__ 构造函数，self第一个参数

@@ -16,7 +16,7 @@ NVIDIA GPU 算力查询：https://developer.nvidia.com/cuda-gpus  比如点击 [
 
 下载 TechPowerUp GPU-Z 软件 https://www.techpowerup.com/download/，运行后如下
 
-![img](./imgs/nvidia-GeForce GTX 1050 Ti.jpg)
+![img](./imgs/nvidia-GeForce-GTX-1050-Ti.jpg)
 
 综上所述，本机显卡 `NVIDIA GeForce GTX 1050 Ti`，算力 6.1，内存 4G，支持CUDA，驱动版本可见图中的 Driver Version = 456.71，拥有768个cuda核心。
 
@@ -44,45 +44,43 @@ CUDA（Compute Unified Device Architecture），是显卡厂商NVIDIA推出的�
 
 查看 cuda driver 版本，命令 nvidia-smi
 
+![img](./imgs/手心输入法截图20230902171023647.jpg)
 
 
 查看 tensorflow + python + cuDNN + CUDA 版本依赖关系：https://tensorflow.google.cn/install/source_windows#gpu
 
 ![img](./imgs/360截图20230901103135685.jpg)
 
-下载安装 CUDA：https://developer.nvidia.com/cuda-downloads，根据你的操作系统选择，如下
+下载安装 CUDA：[https://developer.nvidia.com/cuda-downloads](https://developer.nvidia.com/cuda-downloads)，根据你的操作系统选择，如下
 
 ![img](./imgs/360截图20230901103617340.jpg)
 
-可见最新版本是`cuda_12.2.2_537.13_windows`，并不是我们想要的，点击下方的 [Archive of Previous CUDA Releases](https://developer.nvidia.com/cuda-toolkit-archive)，找到 [CUDA Toolkit 11.0.3](https://developer.nvidia.com/cuda-11-0-3-download-archive)，
+可见最新版本是`cuda_12.2.2_537.13_windows`，并不是我们想要的，点击下方的 [Archive of Previous CUDA Releases](https://developer.nvidia.com/cuda-toolkit-archive)，找到 [CUDA Toolkit 11.0.3](https://developer.nvidia.com/cuda-11-0-3-download-archive)，居然有2.7G
 
-安装的时候，解压路径可以设置，但是后面的安装路径最后不好设置，选择自定义安装，不需要安装组件`NVIDIA GeForce Experience co...`。
+安装的时候，解压路径可以设置，此处为`D:\CUDA`，但是后面的安装路径最好不设置，选择自定义安装，不需要安装组件`NVIDIA GeForce Experience co...`。
 
-安装完之后，打开命令行输入`nvcc -V`
+![img](./imgs/360截图20230902174557166.jpg)
 
-下载安装 cuDNN：https://developer.nvidia.com//rdp/cudnn-archive，找到 [Download cuDNN v8.0.5 (November 9th, 2020), for CUDA 11.0](https://developer.nvidia.com//rdp/cudnn-archive#a-collapse805-110)
-
-下载完成后，将这个压缩包里的`bin, include, lib`目录下的文件分别复制到CUDA安装目录相应文件夹下覆盖之。
-
-cuDNN（CUDA Deep Neural Network），是用于深度神经网络的GPU加速库，使CUDA更符合深度神经网络的使用，如果你不是开发深度神经网络应用，只安装CUDA来调用GPU即可，如果开发神经网络，那么使用cuDNN要比使用CUDD快1倍左右，所以在安装cuDNN的时候我们就是简单的覆盖了CUDA的文件。
-
-接下来设置环境变量 ？？？
-
+安装完之后，打开命令行输入
 ```bash
-CUDA_SDK_PATH = D:\NVIDIA\CUDA Samples(默认安装位置 C:\ProgramData\NVIDIA Corporation\CUDA Samples\v11.0)
-CUDA_LIB_PATH = %CUDA_PATH%\lib\x64
-CUDA_BIN_PATH = %CUDA_PATH%\bin
-CUDA_SDK_BIN_PATH = %CUDA_SDK_PATH%\bin\win64
-CUDA_SDK_LIB_PATH = %CUDA_SDK_PATH%\common\lib\x64
+> nvcc -V
+
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2020 NVIDIA Corporation
+Built on Wed_Jul_22_19:09:35_Pacific_Daylight_Time_2020
+Cuda compilation tools, release 11.0, V11.0.221
+Build cuda_11.0_bu.relgpu_drvr445TC445_37.28845127_0
 ```
 
-环境变量 PATH
+下载安装 cuDNN：[https://developer.nvidia.com//rdp/cudnn-archive](https://developer.nvidia.com//rdp/cudnn-archive)，找到 [Download cuDNN v8.0.5 (November 9th, 2020), for CUDA 11.0](https://developer.nvidia.com//rdp/cudnn-archive#a-collapse805-110)
 
-```bash
-C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.0\extras\lib64；
-```
+大小 482M
 
-配置完成后，我们可以验证是否配置成功，主要使用CUDA内置的测试文件，打开命令行，进入目录 `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\extras\demo_suite`，依次运行 `./bandwithTest.exe`和`./deviceQuery.exe`
+下载完成后，将这个压缩包里的`bin, include, lib`目录下的文件分别复制到CUDA安装目录相应文件夹下合并之。
+
+cuDNN（CUDA Deep Neural Network），是用于深度神经网络的GPU加速库，使CUDA更符合深度神经网络的使用，如果你不是开发深度神经网络应用，只安装CUDA来调用GPU即可，如果开发神经网络，那么使用cuDNN要比使用CUDD快1倍左右，所以在安装cuDNN的时候我们就是简单的合并了CUDA的文件。
+
+配置完成后，我们可以验证是否配置成功，主要使用CUDA内置的测试文件，打开命令行，进入目录 `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1\extras\demo_suite`，依次运行 `bandwidthTest.exe`和`deviceQuery.exe`
 
 ### 4、查看显卡有多少个核心
 
