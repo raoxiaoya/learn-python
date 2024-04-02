@@ -105,16 +105,22 @@ custom_channels:
 ### pip 镜像源设置 
 ```bash
 临时使用
-	pip install -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
+	pip install xxx -i https://pypi.tuna.tsinghua.edu.cn/simple some-package
 	
 设为默认
 	升级 pip 到最新的版本 (>=10.0.0) 后进行配置：
 		python -m pip install --upgrade pip
-		如果您到 pip 默认源的网络连接较差，临时使用本镜像站来升级 pip：
-			python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
-		设为默认 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+	如果您到 pip 默认源的网络连接较差，临时使用本镜像站来升级 pip：
+		python -m pip install -i https://pypi.tuna.tsinghua.edu.cn/simple --upgrade pip
+	设为默认 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 		Writing to C:\Users\Administrator.DESKTOP-TPJL4TC\AppData\Roaming\pip\pip.ini
 
+常用的镜像源：有时候一个源没有这个包就使用 -i 参数换个源下载
+http://mirrors.aliyun.com/pypi/simple/    阿里云
+https://pypi.mirrors.ustc.edu.cn/simple/ 中国科技大学
+http://pypi.douban.com/simple/    豆瓣
+https://pypi.tuna.tsinghua.edu.cn/simple/   清华大学
+http://pypi.mirrors.ustc.edu.cn/simple/ 中国科学技术大学
 ```
 
 ### anaconda自带的工具
@@ -238,7 +244,7 @@ optional arguments:
 
 每一个环境都有自己的一系列包，相互不影响，比如在命令行下我选择 base 环境，在编辑器我选择 tensorflow 环境，在jupyter选择 base 环境。  
 
-vacode中切换环境：  
+vscode中切换环境：  
     方法1：编辑器右下角会展示出当前的环境，点击可选择。  
     方法2：ctrl+shift+p -> 输入 python select interpreter  
 以上设置只是满足编辑器的语法解析，但是在vscode的命令行执行代码的时候还是要执行 activate tensorflow2.4 进入环境
