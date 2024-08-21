@@ -123,7 +123,7 @@ $$
 分别对 a 和 b 求偏导，令导数等于0
 $$
 \frac{\partial Q}{\partial a} = \sum_{i=1}^{n}2x_{i}(ax_{i}+b-y_{i}) = 0 \\
-\frac{\partial Q}{\partial b} = \sum_{i=1}^{n}2(ax_{i}+b-y_{i}) = 0 
+\frac{\partial Q}{\partial b} = \sum_{i=1}^{n}2(ax_{i}+b-y_{i}) = 0
 $$
 为什么要令导数等于0呢？那是因为，在求导之前，Q(a, b)分别是关于a和b的二次方程，而二次方程是个开口向上的抛物线，最低点的导数就是零。
 
