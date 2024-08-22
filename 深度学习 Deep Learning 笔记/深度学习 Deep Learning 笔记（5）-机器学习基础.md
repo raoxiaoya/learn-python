@@ -477,7 +477,7 @@ https://www.bilibili.com/video/BV1MY41137AK/?spm_id_from=pageDriver&vd_source=0c
 
 **随机梯度下降算法SGD**
 
-**1、什么是梯度 gradient**
+**梯度 gradient 以及梯度下降法**
 
 https://www.zhihu.com/question/29151564/answer/1827501472
 
@@ -543,9 +543,11 @@ $$
 $$
 
 
+算法实现以及实例代码：https://github.com/raoxiaoya/learn-python/learn_algo
 
+查看不同函数的图形的网站：https://www.geogebra.org/m/Bx8nFMNc
 
-**2、梯度下降法**
+![image-20240822103720062](D:\dev\php\magook\trunk\server\md\img\image-20240822103720062.png)
 
 https://www.zhihu.com/question/305638940/answer/1639782992
 

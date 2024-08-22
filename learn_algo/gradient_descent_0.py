@@ -6,7 +6,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 
 '''
+批量梯度下降法
 
+没有添加截距，有问题
 
 https://mp.weixin.qq.com/s/gizUmdNcvSyUFhSRWVjXtA
 '''
@@ -112,4 +114,4 @@ def showDistribute():
 
 
 if __name__ == '__main__':
-    showResult()
+    showDistribute()

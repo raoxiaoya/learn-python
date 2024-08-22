@@ -9,17 +9,20 @@ def predict(θ_0, θ_1, x):
 
 def loop(m, θ_0, θ_1, x, y):
     # 遍历整个样本数据，计算偏差，使用批量梯度下降法
+    sum0 = 0
     sum1 = 0
-    sum2 = 0
     error = 0
     for i in range(m):
         a = predict(θ_0, θ_1, x[i]) - y[i]  # 误差
-        b = a * x[i]
-        error1 = a*a  # 误差的评分
-        sum1 += a
-        sum2 += b
-        error += error1
-    return sum1, sum2, error
+        sum0 += a
+        sum1 += a * x[i]
+        error += a*a  # 误差的评平方
+
+    gradient_0 = sum0 / m  # θ_0 的梯度
+    gradient_1 = sum1 / m  # θ_1 的梯度
+    error = error / m
+
+    return gradient_0, gradient_1, error
 
 
 def batch_gradient_descent(x, y, θ_0, θ_1, alpha, m):
@@ -27,15 +30,12 @@ def batch_gradient_descent(x, y, θ_0, θ_1, alpha, m):
     # 设定一个阀值，当梯度的绝对值小于0.001时即不再更新了
     while True:
         res = loop(m, θ_0, θ_1, x, y)
-        gradient_0 = res[0]/m
-        gradient_1 = res[1]/m
-        error = res[2]/m
-        θ_0 = θ_0 - alpha*gradient_0
-        θ_1 = θ_1 - alpha*gradient_1
-        if abs(gradient_1) <= 0.01:
+        θ_0 = θ_0 - alpha*res[0]
+        θ_1 = θ_1 - alpha*res[1]
+        if abs(res[1]) <= 0.01:
             break
 
-    return θ_0, θ_1, error
+    return θ_0, θ_1, res[2]
 
 
 # 样本数据

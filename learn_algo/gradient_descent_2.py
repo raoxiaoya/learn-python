@@ -1,7 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+'''
+二维空间梯度下降法
+
 # https://mp.weixin.qq.com/s/IAkVWrWGMZCGAwxIhRysLw
+'''
 
 
 def fx(x):

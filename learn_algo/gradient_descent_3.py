@@ -2,6 +2,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
+'''
+三维空间梯度下降法
+
+# https://mp.weixin.qq.com/s/IAkVWrWGMZCGAwxIhRysLw
+'''
 
 def fx(x, y):
     # 求fx的函数值
