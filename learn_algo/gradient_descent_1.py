@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.model_selection import train_test_split
@@ -15,7 +14,7 @@ https://mp.weixin.qq.com/s/gizUmdNcvSyUFhSRWVjXtA
 
 # 生成模拟数据
 np.random.seed(42)
-num_samples = 10000
+num_samples = 100000
 # 矩阵 10X3，假设3个特征，rand函数生成符合标准正态分布的样本，取值在[0, 1)
 X = np.random.rand(num_samples, 3) * 100
 # print(X.shape) # (10, 3)
@@ -67,8 +66,8 @@ def gradient_descent(X, y, theta, learning_rate, iterations):
 # 初始化参数，既包括变量的权重，也包括截距
 varlen = X_train.shape[1]  # 变量个数
 theta = np.zeros(varlen+1)  # 3X1，权重初始值，[0,0,0]
-learning_rate = 0.05  # 步长
-iterations = 100
+learning_rate = 0.01  # 步长
+iterations = 1000
 
 # 训练模型
 theta_opt, cost_history = gradient_descent(
