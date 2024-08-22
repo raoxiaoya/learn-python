@@ -84,6 +84,7 @@ test_mse = mean_squared_error(y_test, y_test_pred)
 print(f"Train MSE: {train_mse}")
 print(f"Test MSE: {test_mse}")
 
+
 def showLost():
     # 损失函数的变化
     plt.figure(figsize=(10, 6))
@@ -100,13 +101,14 @@ def showResult():
     # 预测结果的分布
     plt.figure(figsize=(10, 6))
     plt.scatter(y_test, y_test_pred, alpha=0.3, label='Predicted vs Actual')
+    plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)],
+             color='red', lw=2, label='Perfect Prediction')
     plt.xlabel('Actual Values')
     plt.ylabel('Predicted Values')
     plt.title('Predicted vs Actual Values')
-    plt.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)],
-             color='red', lw=2, label='Perfect Prediction')
     plt.legend()
     plt.show()
+
 
 def showDistribute():
     # 测试数据和预测数据的误差分布情况
@@ -117,5 +119,6 @@ def showDistribute():
     plt.ylabel('Frequency')
     plt.grid(True)
     plt.show()
+
 
 showDistribute()
