@@ -66,10 +66,6 @@ w=\left(X^{\mathrm{(train)}\top}X^{\mathrm{(train)}}\right)^{-1}X^{\mathrm{(trai
 $$
 
 
-
-
-
-
 #### 5.2、容量、过拟合、欠拟合
 
 **欠拟合**是指模型不能在训练集上获得足够低的误差。
@@ -189,9 +185,17 @@ $$
 
 
 **极大似然估计**
+
+https://mp.weixin.qq.com/s/hVlEL7owUdAPKLyTpN0vkw
 $$
 L(\hat{y}, y)=max\sum_{i=1}^{n}(y_{i}·\log{\hat{y}_{i}} + (1-y_{i})·\log{(1-\hat{y}_{i})}) \\
 =min-\sum_{i=1}^{n}(y_{i}·\log{\hat{y}_{i}} + (1-y_{i})·\log{(1-\hat{y}_{i})}) \\
+$$
+我们使用梯度下降的方式来求极值，需要先得到梯度
+$$
+令~y=wx+b \\
+\nabla w = \frac{\part L}{\part w}=\sum_{i=1}^{n}(\hat{y}-y)x \\
+\nabla b = \frac{\part L}{\part b}=\sum_{i=1}^{n}(\hat{y}-y)
 $$
 
 
@@ -313,10 +317,6 @@ $$
 
 
 
-为什么使用交叉熵代替均方误差MSE：1、交叉熵权重更新更快。
-
-
-
 **为什么极大似然估计与交叉熵的公式一样**
 
 
@@ -349,18 +349,18 @@ loss值高但是稳定不变当然可以叫作收敛了，因为loss高可能只
 
 卷积神经网络CNN就是在神经网络前面加上了一些卷积层（`输入层-->卷积层——>池化层-->全连接层-->输出层`）。
 
-激活函数的作用就是将上一层的结果做一个转换得到结果Y，使其看上去特征明显，很容易就能判断和分类，比如Y的结果只有0和1。
+激活函数的作用就是将上一层的结果做一个转换得到结果Y，使其看上去特征明显，很容易就能判断和分类，比如使Y的结果只有0和1。
 
 
 
 关于Relu函数：https://blog.csdn.net/cherrylvlei/article/details/53149381
 
-将上一个神经元的输出作为 x ，输入到下一个神经元的激活函数中去，依次往前。
+将神经元的输出作为 x ，输入到激活函数中去，得到结果，输入到下一个神经元中去，依次往前。
 
 有一条直线，上面有一些点（激活函数），通过拉扯这些点可以将直线变成任意曲线（俗称加入非线性因素），扩展到多维空间就是任意超曲面，目的就是为了分类。
-$$
-y=f(\sum_{i=1}^{n}w_{i}x_{i}+b)
-$$
+
+
+
 将上游函数的结果y当做激活函数的x代入之，得到一些奇特的效果。比如 Sigmoid 激活函数，他取值(0, 1)，两端无限趋近于0或1，相相当于忽略掉了两端的波动，只关注中间这块的信息，起到过滤的作用。
 
 ![image-20240815115059107](D:\dev\php\magook\trunk\server\md\img\image-20240815115059107.png)
@@ -379,7 +379,7 @@ $$
 
 https://www.bilibili.com/video/BV1z5411f7Bm/?spm_id_from=333.788&vd_source=0c75dc193ee55511d0515b3a8c375bd0
 
-有记忆能力，可以理解一定的上下文，但是记忆力也就十步之内。
+有记忆能力，可以理解一定的上下文，但是记忆力也就几步之内。
 
 可以理解为一个神经网络NN，在不同的时刻`t`上有不同的NN，它们有不同的参数值，因此存储着不同的信息，但是`t`时刻的神经元可以从`t-1`时刻的神经元获取信息，这就是上下文。所谓的循环指的是时间上可以一层一层的从过去获得信息。
 
@@ -425,35 +425,11 @@ Ct就是得到的新日记。
 
 **反向传播BackPropagation**
 
+https://mp.weixin.qq.com/s/YL9iWa_1gDhL7EVHAQm5RA
+
 误差从输出向后倒查分解，以便根据梯度更新神经元连接的权重。
 
-
-
-
-
-**自注意力机制attention**
-
-https://www.bilibili.com/video/BV1xS4y1k7tn/?spm_id_from=333.788&vd_source=0c75dc193ee55511d0515b3a8c375bd0
-
-attention就是权重。以输入为中心（称为自注意力self-attention），在全部节点中查找与他关联最紧密的信息，即权重最高的一些信息，而这个权重是由训练的时候设置的。于是模型就像理解了你的上下文一样。
-
-transformer算法
-
-BERT模型
-
-GPT模型
-
-attention机制的三大优点：参数更少，速度更快，效果更好。
-
-
-
-**transformer算法**
-
-https://www.bilibili.com/video/BV1MY41137AK/?spm_id_from=pageDriver&vd_source=0c75dc193ee55511d0515b3a8c375bd0
-
-就是基于自注意力机制实现的。在机器翻译领域表现巨好，近年来横扫NLP领域。
-
-
+我们找到了随时函数的最小值所对应的**W**和**b**参数，而这个参数是输出层的参数，我们还不知道隐藏层和输入层的参数。这就是反向传播要做的事。通过**链式法则**，我们可以从输出层开始，逐层向前计算每个参数的梯度。
 
 
 
@@ -475,9 +451,13 @@ https://www.bilibili.com/video/BV1MY41137AK/?spm_id_from=pageDriver&vd_source=0c
 
 
 
-**随机梯度下降算法SGD**
+
 
 **梯度 gradient 以及梯度下降法**
+
+https://mp.weixin.qq.com/s/gizUmdNcvSyUFhSRWVjXtA
+
+https://mp.weixin.qq.com/s/IAkVWrWGMZCGAwxIhRysLw
 
 https://www.zhihu.com/question/29151564/answer/1827501472
 
@@ -522,30 +502,22 @@ $$
 
 
 
-梯度下降法的实例：
-
-https://mp.weixin.qq.com/s/gizUmdNcvSyUFhSRWVjXtA
-
-https://mp.weixin.qq.com/s/IAkVWrWGMZCGAwxIhRysLw
-
-
-
-如果损失函数是均方误差MSE，那么可以推导出梯度的计算公式
+如果损失函数是**均方误差MSE**，那么可以推导出梯度的计算公式
 $$
-假设：y=ax+b \\
-损失函数：f(y,\hat{y}) = \sum(y-\hat{y})^2 \\
-那么：\nabla a=\frac{\partial f}{\partial a}= \frac{\partial (\sum(y-\hat{y})^2)}{\partial a} \\
-=2·(y-\hat{y})·\frac{\partial (\sum(y-\hat{y}))}{\partial a} \\
-=2·(y-\hat{y})·\frac{\partial y}{\partial a} \\
-=2·(y-\hat{y})·x \\
-然后：\nabla b=2·(y-\hat{y}) \\
-所以，综合来看，\theta_{n}=\theta_{n-1}-\eta·(y-\hat{y})
+假设：y=ax+b ，其实后面的推理适用与所有函数 \\
+损失函数：f(\hat{y},y) = \sum(\hat{y}-y)^2 \\
+那么：\nabla a=\frac{\partial f}{\partial a}= \frac{\partial (\sum(\hat{y}-y)^2)}{\partial a} \\
+=2·(\hat{y}-y)·\frac{\partial (\sum(\hat{y}-y))}{\partial a} \\
+=2·(\hat{y}-y)·\frac{\partial y}{\partial a} \\
+=2·(\hat{y}-y)·x \\
+然后：\nabla b=2·(\hat{y}-y) \\
+所以，综合来看，\theta_{n}=\theta_{n-1}-\eta·(\hat{y}-y)
 $$
 
 
 算法实现以及实例代码：https://github.com/raoxiaoya/learn-python/learn_algo
 
-查看不同函数的图形的网站：https://www.geogebra.org/m/Bx8nFMNc
+查看不同函数的图形：https://www.geogebra.org/m/Bx8nFMNc
 
 ![image-20240822103720062](D:\dev\php\magook\trunk\server\md\img\image-20240822103720062.png)
 
@@ -575,19 +547,15 @@ https://www.zhihu.com/question/264189719/answer/2882977899
 
 ![image-20240809174436469](D:\dev\php\magook\trunk\server\md\img\image-20240809174436469.png)
 
-梯度下降法的好处就是，这个算法可以知道哪个参数对产生这个差值贡献的多，哪个贡献的少，贡献多的多调整，贡献少的少调整。
-
 上面我们已经充分了解了梯度下降法，剩下的还要考虑该如何使用这些样本，主要是梯度的计算方式不同。分为：
 
-- 批量梯度下降法BGD：把所有样本都计算一遍，得到N个梯度值，取平均值，然后去更新 θ。
-- 随机梯度下降法SGD：随机取一个样本来计算梯度作为此次迭代的梯度，然后去更新 θ。
-- 小批量梯度下降法MBGD：取一个小批量的样本来计算梯度，然后去更新 θ。推荐。
+- **批量梯度下降法BGD**：每一次迭代，把所有样本（个数为N）都计算一遍，得到N个梯度值，取平均值，然后去更新 θ。
+- **随机梯度下降法SGD**：每一次迭代，随机取一个样本来计算梯度，更新 θ，然后循环N次，每次循环都要更新 θ。
+- **小批量梯度下降法MBGD**：每一次迭代，随机取一小批样本来计算梯度，取平均值，更新 θ，然后循环N除以size次，每次循环都要更新 θ。推荐。
 
 当训练样本数很大时，批量梯度下降的每次更新都会是计算量很大的操作，而随机梯度下降可以利用单个训练样本立即更新，因此随机梯度下降 通常是一个更快的方法。但随机梯度下降也有一个缺点，那就是θ可能不会收敛，而是在最小值附近振荡，但在实际中也都会得到一个足够好的近似。所以实际情况下，我们一般不用固定的学习率，而是让它随着算法的运行逐渐减小到零，也就是在接近“山底”的时候慢慢减小下降的“步幅”，换成用“小碎步”走，这样它就更容易收敛于全局最小值而不是围绕它振荡了。
 
-**3、随机梯度下降法SGD**
-
-他是梯度下降算法的扩展。
+**随机梯度下降法SGD**
 
 每一次随机选择一个样本进行梯度计算。行进路线就像醉汉，比较波折。好处是提升了计算速度（每次只需要计算一个样本点），但是却牺牲了精准度，虽然大方向是对的。
 
@@ -597,7 +565,7 @@ https://www.zhihu.com/question/264189719/answer/2694337482
 
 
 
-4、小批量梯度下降法MBGD
+**小批量梯度下降法MBGD**
 
 每次计算的时候，选取当前点附近的几个点进行计算，找到梯度下降最多的方向，称为小批量。
 
@@ -619,21 +587,37 @@ https://www.zhihu.com/question/264189719/answer/2694337482
 
 
 
+梯度下降法对学习率的值非常敏感，太大或太小都不行。另外，有可能找到的是局部最低点，而不是全局最低点。为了解决这些问题，就有了新的算法:
+
+- 动态调整学习率的AdaGrad
+- 优化动态学习率RMSProp
+- 无需设置学利率AdaDelta
+- 融合了AdaGrad与RMSProp的算法Adam
+- 模拟动量Momentum
 
 
-梯度下降法对学习率的值非常敏感，太大或太小都不行。另外，有可能找到的是局部最低点，而不是全局最低点。为了解决这些问题，就有了:
 
-动态调整学习率的AdaGrad
+**自注意力机制attention**
 
-优化动态学习率RMSProp
+https://www.bilibili.com/video/BV1xS4y1k7tn/?spm_id_from=333.788&vd_source=0c75dc193ee55511d0515b3a8c375bd0
 
-无需设置学利率AdaDelta
+attention就是权重。以输入为中心（称为自注意力self-attention），在全部节点中查找与他关联最紧密的信息，即权重最高的一些信息，而这个权重是由训练的时候设置的。于是模型就像理解了你的上下文一样。
 
-融合了AdaGrad与RMSProp的算法Adam
+transformer算法
 
-模拟动量Momentum
+BERT模型
+
+GPT模型
+
+attention机制的三大优点：参数更少，速度更快，效果更好。
 
 
+
+**transformer算法**
+
+https://www.bilibili.com/video/BV1MY41137AK/?spm_id_from=pageDriver&vd_source=0c75dc193ee55511d0515b3a8c375bd0
+
+就是基于自注意力机制实现的。在机器翻译领域表现巨好，近年来横扫NLP领域。
 
 
 
