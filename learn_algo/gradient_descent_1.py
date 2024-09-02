@@ -121,5 +121,5 @@ def showDistribute():
 
 
 if __name__ == '__main__':
-    showDistribute()
+    showLost()
     # print(111)

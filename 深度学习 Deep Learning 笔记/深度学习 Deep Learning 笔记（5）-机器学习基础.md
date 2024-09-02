@@ -176,6 +176,8 @@ https://zhuanlan.zhihu.com/p/261059231
 
 
 **最小二乘法，均方误差损失函数MSE**
+
+![image-20240830175634122](D:\dev\php\magook\trunk\server\md\img\image-20240830175634122.png)
 $$
 L(\hat{y}, y)=\sum_{i=1}^{n}(\hat{y}_{i}-y_{i})^{2} \\
 L(\hat{y}, y)=\frac{1}{n}\sum_{i=1}^{n}(\hat{y}_{i}-y_{i})^{2}
@@ -207,7 +209,7 @@ https://www.zhihu.com/question/27068465/answer/2517655344
 
 关于熵：https://zhuanlan.zhihu.com/p/611197924
 
-在信息论中，一种信号i出现的概率越高，当它发生时携带的**信息量**就越少，因此信息量和概率是一个反比例或倒数关系，之所以加上log函数，是因为log函数有很好的数学表现，且它不改变函数的单调性。
+在信息论中，一种信号i出现的概率越高，当它发生时携带的**信息量**就越少，因此信息量和概率是一个反比例或倒数关系，之所以加上log函数，是因为要满足`f(xy)=f(x)+f(y)`，且它不改变函数的单调性。
 
 在信息论中，**信息熵**描述一个信号源发出的信号携带的平均信息量（也就是信息量的期望），以此来描述一个系统的不确定性程度。所以，理解信息熵最好是从信息量的角度出发。
 
@@ -223,15 +225,13 @@ $$
 =\sum_{i}P(X_{i})\log_{b}\frac{1}{P(X_{i})} \\
 P(x)是一种概率分布，表示系统处于某一种状态下的概率，取值[0,1]，总和为1；\\
 \frac{1}{p(x)}代表不确定性，log是表示复杂度。 \\
-其中的 b 代表底数，比如 2, 10, e 等等，常用的就是 2，这符合计算机中的二进制。 \\
+其中的 b 代表底数，即单位，比如 2, 10, e 等等，常用的就是 2，这符合计算机中的二进制。 \\
 熵的最大值为 \log{N}，即这是一个均匀分布的系统，每个事件发生的概率都是 \frac{1}{N}，正如上面的掷骰子。\\
 熵的最小值为 0
 $$
 ![image-20240820223522171](D:\dev\php\magook\trunk\server\md\img\image-20240820223522171.png)
 
-![image-20240820225917694](D:\dev\php\magook\trunk\server\md\img\image-20240820225917694.png)
-
-![image-20240820225939852](D:\dev\php\magook\trunk\server\md\img\image-20240820225939852.png)
+![image-20240901141615593](D:\dev\php\magook\trunk\server\md\img\image-20240901141615593.png)
 
 对于上面的这两个分布P(x)，我们来计算它们的熵。
 
@@ -311,9 +311,15 @@ if __name__ == "__main__":
 $$
 交叉熵：H(P,Q)=-\sum_{i=1}^{n}P(x_{i})\log{Q(x_{i})} \\
 交叉熵：H(Y,\hat{Y})=-\sum_{i=1}^{n}Y_{i}·\log{\hat{Y}_{i}} \\
-相对熵（KL散度）：D(P||Q)=H(P,Q)-H(P)=-\sum_{i=1}^{n}P(x_{i})\log{\frac{Q(x_{i})}{P(x_{i})}} 
+相对熵（KL散度）：D(P||Q)=H(P,Q)-H(P)=-\sum_{i=1}^{n}P(x_{i})\log{\frac{Q(x_{i})}{P(x_{i})}}
 $$
-在公式上，交叉熵和极大似然估计是完全一样的。
+接下来我们来分解交叉熵，P 为样本，Q为神经网络的预测结果。哦们只需要知道，当样本为真而机器预测为真的概率，样本为假而机器预测为假的情况。这个无法理解！！！
+$$
+H(P,Q)=-\sum_{i=1}^{n}P\log{Q} \\
+=-\sum_{i=1}^{n}y\log{Q} \\
+=-\sum_{i=1}^{n}(y\log{\hat{y}}+(1-y)\log{(1-\hat{y}})) \\
+$$
+使用交叉熵损失大大提高了具有 sigmoid 和 softmax 输出的模型的性能，而当使用均方误差损失时会存在饱和和学习缓慢的问题。
 
 
 
@@ -373,66 +379,6 @@ loss值高但是稳定不变当然可以叫作收敛了，因为loss高可能只
 
 
 
-
-
-**循环神经网络RNN**
-
-https://www.bilibili.com/video/BV1z5411f7Bm/?spm_id_from=333.788&vd_source=0c75dc193ee55511d0515b3a8c375bd0
-
-有记忆能力，可以理解一定的上下文，但是记忆力也就几步之内。
-
-可以理解为一个神经网络NN，在不同的时刻`t`上有不同的NN，它们有不同的参数值，因此存储着不同的信息，但是`t`时刻的神经元可以从`t-1`时刻的神经元获取信息，这就是上下文。所谓的循环指的是时间上可以一层一层的从过去获得信息。
-
-![image-20240814221559991](D:\dev\php\magook\trunk\server\md\img\image-20240814221559991.png)
-
-![image-20240814221525926](D:\dev\php\magook\trunk\server\md\img\image-20240814221525926.png)
-
-
-
-CNN主要用于图像识别。
-
-RNN可以理解上下文，可以用于NLP，语音，视频处理等，但是现在被自注意力模型transformer超越，但是RNN在小数据集，低算力的情况下依然可以非常有效。
-
-
-
-**LSTM-RNN**
-
-https://www.bilibili.com/video/BV1Z34y1k7mc/?spm_id_from=333.788&vd_source=0c75dc193ee55511d0515b3a8c375bd0
-
-为了解决RNN的记忆短的问题，人们发明了`长短期记忆网络LSTM（Long Short-term Memoery）`。
-
-LSTM的秘诀就是增加了一个日记本存储长期记忆，并且有增加和删除日记的操作，这称为长期记忆。而短期记忆还是RNN来提供。
-
-![image-20240814223903361](D:\dev\php\magook\trunk\server\md\img\image-20240814223903361.png)
-
-粉色的三个C层就是长期记忆，也就是日记本，他与RNN中的隐藏层连接，互相通信，
-
-![image-20240814224321273](D:\dev\php\magook\trunk\server\md\img\image-20240814224321273.png)
-
-
-
-sigmoiid 函数取值(0, 1)，因此会抹掉一些不重要的信息，起到擦除作用，相当于选择性遗忘了部分记忆，相当于一个阀门，过滤重要特征，忽略无关信息。
-
-tanh 函数取值(-1, 1)，相对于把这两天发生的事情进行梳理和归纳，也就是更新日记。
-
-
-
-![image-20240814224608174](D:\dev\php\magook\trunk\server\md\img\image-20240814224608174.png)
-
-Ct就是得到的新日记。
-
-
-
-**反向传播BackPropagation**
-
-https://mp.weixin.qq.com/s/YL9iWa_1gDhL7EVHAQm5RA
-
-误差从输出向后倒查分解，以便根据梯度更新神经元连接的权重。
-
-我们找到了随时函数的最小值所对应的**W**和**b**参数，而这个参数是输出层的参数，我们还不知道隐藏层和输入层的参数。这就是反向传播要做的事。通过**链式法则**，我们可以从输出层开始，逐层向前计算每个参数的梯度。
-
-
-
 **什么是鲁棒性**
 
 鲁棒性，英文是[Robustness](https://www.zhihu.com/search?q=Robustness&search_source=Entity&hybrid_search_source=Entity&hybrid_search_extra={"sourceType"%3A"answer"%2C"sourceId"%3A2927152951})，也可翻译为稳健性，指模型在陌生环境或噪声干扰下依旧能够完成预期任务的能力。
@@ -475,10 +421,10 @@ $$
 $$
 首先给参数(a, b, c, d)一个初始值，设置一个步长（学习率） η，然后根据梯度可以更新参数
 $$
-a=a-\eta · \nabla a \\
-b=b-\eta · \nabla b \\
-c=c-\eta · \nabla c \\
-b=d-\eta · \nabla d \\
+a'=a-\eta · \nabla a \\
+b'=b-\eta · \nabla b \\
+c'=c-\eta · \nabla c \\
+b'=d-\eta · \nabla d \\
 $$
 接下来设置目标结果，也就是收敛条件，常见的收敛条件包括：
 
@@ -557,7 +503,7 @@ https://www.zhihu.com/question/264189719/answer/2882977899
 
 **随机梯度下降法SGD**
 
-每一次随机选择一个样本进行梯度计算。行进路线就像醉汉，比较波折。好处是提升了计算速度（每次只需要计算一个样本点），但是却牺牲了精准度，虽然大方向是对的。
+每一次随机选择几个少量样本进行梯度计算。行进路线就像醉汉，比较波折。好处是提升了计算速度（每次只需要计算少量样本点），但是却牺牲了精准度，但是大方向是对的。
 
 https://www.zhihu.com/question/264189719/answer/2694337482
 
@@ -597,6 +543,44 @@ https://www.zhihu.com/question/264189719/answer/2694337482
 
 
 
+**梯度反向传播BackPropagation**
+
+这篇很不错：https://zhuanlan.zhihu.com/p/40378224
+
+https://mp.weixin.qq.com/s/YL9iWa_1gDhL7EVHAQm5RA
+
+https://mp.weixin.qq.com/s/ltLHtY6FAXI8Hgy4sL4bYw
+
+前面讲的使用梯度下降法求解损失函数的最小值是个原理，但是具体到多层神经网络这个场景中，还无法解决问题，因为这个损失函数是一个总的概括，如何求出每一层中的w梯度和b梯度呢，这就要用到反向传播算法逐一算出各个参数的梯度。反向传播的基础是微积分中的导数**链式法则**，我们可以从输出层开始，逐层向前计算每个参数的梯度。
+
+![image-20240902093706496](D:\dev\php\magook\trunk\server\md\img\image-20240902093706496.png)
+
+我们知道在多层神经网络中，各层的函数表示为：
+$$
+第一层：h^{(1)}=g^{(1)}(W^{(1)T}x+b^{(1)}) \\
+第二层：h^{(2)}=g^{(2)}(W^{(2)T}h^{(1)}+b^{(2)}) \\
+ \\ \\
+
+L1=(w_{11}·x_{1}+b_{11}) + (w_{21}·x_{2}+b_{21}) \\
+L2=(w_{12}·x_{1}+b_{12}) + (w_{22}·x_{2}+b_{22}) \\
+.... \\
+L8=w_{18}·\sigma_{1}(L1)+b_{18}+w_{28}·\sigma_{2}(L2)+b_{28} \\
+y=\sigma_{11}(L11)
+$$
+**链式法则：**
+$$
+假设：y=g(x)，z=f(y)，那么z关于x的函数可以写成：z=f(g(x))，这恰恰是多层神经网络的表示。 \\ 
+为了计算方便，设~z=h(x)。\\
+我们知道 \frac{dy}{dx}=g'(x)，\frac{dz}{dy}=f'(y)，那么z对x的导数\frac{dz}{dx}=\frac{dz}{dy}·\frac{dy}{dx} \\
+当变量是多个的时候，偏导数依然适用。 \\
+因此，我们就可以算出每个神经元的w梯度和b梯度，于是就可以更新参数 \\
+w'_{t}=w_{t}-\eta·\nabla w_{t} \\
+b'_{t}=b_{t}-\eta·\nabla b_{t}
+$$
+
+
+
+
 **自注意力机制attention**
 
 https://www.bilibili.com/video/BV1xS4y1k7tn/?spm_id_from=333.788&vd_source=0c75dc193ee55511d0515b3a8c375bd0
@@ -623,4 +607,3 @@ https://www.bilibili.com/video/BV1MY41137AK/?spm_id_from=pageDriver&vd_source=0c
 
 
 
-页码：118/146
