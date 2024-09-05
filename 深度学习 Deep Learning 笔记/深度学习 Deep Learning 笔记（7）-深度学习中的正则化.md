@@ -33,6 +33,8 @@ L2 可以起到权重衰减的效果，因为求梯度之后，正好与原梯�
 
 Dropout是一种常用的正则化技术，它在训练过程中以一定概率随机关闭部分神经元，使模型不依赖于单个神经元，增强模型的[鲁棒性](https://zhida.zhihu.com/search?q=鲁棒性&zhida_source=entity&is_preview=1)。
 
+为什么Dropout最有效：https://blog.csdn.net/stdcoutzyx/article/details/49022443
+
 
 
 ##### 2.3、批量归一化（Batch Normalization）

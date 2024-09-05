@@ -7,9 +7,7 @@ from sklearn.preprocessing import StandardScaler
 '''
 批量梯度下降法
 
-已经添加了截距，正确
-
-https://mp.weixin.qq.com/s/gizUmdNcvSyUFhSRWVjXtA
+已经添加了截距
 '''
 
 # 生成模拟数据

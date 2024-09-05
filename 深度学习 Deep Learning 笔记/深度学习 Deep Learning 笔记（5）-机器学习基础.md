@@ -580,28 +580,17 @@ $$
 
 
 
+**输出层使用了softmax后如何计算损失**
 
-**自注意力机制attention**
-
-https://www.bilibili.com/video/BV1xS4y1k7tn/?spm_id_from=333.788&vd_source=0c75dc193ee55511d0515b3a8c375bd0
-
-attention就是权重。以输入为中心（称为自注意力self-attention），在全部节点中查找与他关联最紧密的信息，即权重最高的一些信息，而这个权重是由训练的时候设置的。于是模型就像理解了你的上下文一样。
-
-transformer算法
-
-BERT模型
-
-GPT模型
-
-attention机制的三大优点：参数更少，速度更快，效果更好。
+在分类问题中一般在输出层使用softmax激活函数，即输出的是一个数组，其元素的个数为类型的个数。如果使用交叉熵作为损失函数的话，该怎么计算损失呢？
+$$
+L=-\sum y·log\hat{y}
+$$
+加入总共有四个分类，那么我们要将真实值转换成数组，比如它是第三个类型，即`[0, 0, 1, 0]`。然后模型预测结果是概率，比如`[0.1, 0.1, 0.7, 0.1]`，那么损失就是`-log(0.7)`
 
 
 
-**transformer算法**
 
-https://www.bilibili.com/video/BV1MY41137AK/?spm_id_from=pageDriver&vd_source=0c75dc193ee55511d0515b3a8c375bd0
-
-就是基于自注意力机制实现的。在机器翻译领域表现巨好，近年来横扫NLP领域。
 
 
 
