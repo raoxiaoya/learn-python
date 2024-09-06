@@ -1,6 +1,8 @@
 深度学习 Deep Learning 笔记（9）-卷积网络
 
 
+卷积神经网络的原理：https://www.bilibili.com/video/BV1f54y1f7rs/?spm_id_from=333.788&vd_source=dd488f2825c3a352e192887d5d63e429
+
 
 卷积网络（convolutional network）(LeCun, 1989)，也叫做 卷积神经网络（convolutional neural network, CNN），是一种专门用来处理具有类似网格结构的数据的神经网络。例如时间序列数据（可以认为是在时间轴上有规律地采样形成的一维网格）和图像数据（可以看作是二维的像素网格）。卷积网络在诸多应用领域都表现优异。“卷积神经网络’’ 一词表明该网络使用了 卷积（convolution）这种数学运算。卷积是一种特殊的线性运算。卷积网络是指那些至少在网络的一层中使用卷积运算来替代一般的矩阵乘法运算的神经网络。
 
