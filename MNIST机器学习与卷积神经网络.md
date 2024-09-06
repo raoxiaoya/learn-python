@@ -380,3 +380,8 @@ V：核高
 
 
 
+**可视化MNIST的运行过程**
+
+https://tensorspace.org/index.html
+
+![image-20240906161235863](D:\dev\php\magook\trunk\server\md\img\image-20240906161235863.png)
