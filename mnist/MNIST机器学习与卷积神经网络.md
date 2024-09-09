@@ -169,6 +169,54 @@ plt.legend()
 plt.show()
 ```
 
+```bash
+Epoch 1/20
+1875/1875 [==============================] - 5s 2ms/step - loss: 1.0119 - accuracy: 0.6633 - val_loss: 0.2844 - val_accuracy: 0.9179
+Epoch 2/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.3920 - accuracy: 0.8817 - val_loss: 0.2388 - val_accuracy: 0.9302
+Epoch 3/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.3255 - accuracy: 0.9032 - val_loss: 0.2211 - val_accuracy: 0.9358
+Epoch 4/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.3046 - accuracy: 0.9107 - val_loss: 0.2036 - val_accuracy: 0.9414
+Epoch 5/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2756 - accuracy: 0.9177 - val_loss: 0.2029 - val_accuracy: 0.9415
+Epoch 6/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2537 - accuracy: 0.9255 - val_loss: 0.1937 - val_accuracy: 0.9444
+Epoch 7/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2382 - accuracy: 0.9294 - val_loss: 0.1925 - val_accuracy: 0.9465
+Epoch 8/20
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.2375 - accuracy: 0.9292 - val_loss: 0.1877 - val_accuracy: 0.9461
+Epoch 9/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2300 - accuracy: 0.9328 - val_loss: 0.1886 - val_accuracy: 0.9456
+Epoch 10/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2212 - accuracy: 0.9340 - val_loss: 0.1883 - val_accuracy: 0.9471
+Epoch 11/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2138 - accuracy: 0.9369 - val_loss: 0.1860 - val_accuracy: 0.9476
+Epoch 12/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.2013 - accuracy: 0.9416 - val_loss: 0.1855 - val_accuracy: 0.9471
+Epoch 13/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1994 - accuracy: 0.9396 - val_loss: 0.1830 - val_accuracy: 0.9500
+Epoch 14/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1976 - accuracy: 0.9413 - val_loss: 0.1812 - val_accuracy: 0.9506
+Epoch 15/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1983 - accuracy: 0.9411 - val_loss: 0.1832 - val_accuracy: 0.9504
+Epoch 16/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1892 - accuracy: 0.9443 - val_loss: 0.2024 - val_accuracy: 0.9471
+Epoch 17/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1855 - accuracy: 0.9438 - val_loss: 0.2021 - val_accuracy: 0.9458
+Epoch 18/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1858 - accuracy: 0.9453 - val_loss: 0.1853 - val_accuracy: 0.9516
+Epoch 19/20
+1875/1875 [==============================] - 3s 1ms/step - loss: 0.1853 - accuracy: 0.9446 - val_loss: 0.1849 - val_accuracy: 0.9497
+Epoch 20/20
+1875/1875 [==============================] - 2s 1ms/step - loss: 0.1803 - accuracy: 0.9456 - val_loss: 0.1888 - val_accuracy: 0.9506
+313/313 [==============================] - 0s 803us/step - loss: 0.1888 - accuracy: 0.9506
+测试集损失: 0.18882906436920166
+测试集准确率: 0.9506000280380249
+```
+
+
+
 ![image-20240906115901155](D:\dev\php\magook\trunk\server\md\img\image-20240906115901155.png)
 
 **5.模型评价以及模型保存**
@@ -182,6 +230,11 @@ print("测试集准确率:", test_acc)
 model.save('handwritten_digit.keras')
 ```
 
+```bash
+测试集损失: 0.18882906436920166
+测试集准确率: 0.9506000280380249
+```
+
 
 
 **6.模型调用识别数字**
@@ -189,6 +242,12 @@ model.save('handwritten_digit.keras')
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/cCtGVD6h9medUfD2dmZdcBBJs4q8IKlCYDmnt47pHkhI8odN1hXxTQypDRldBbeMD1JRgP2jBQ3o9iaeHJ3QEyA/640?wx_fmt=png&from=appmsg&tp=wxpic&wxfrom=5&wx_lazy=1&wx_co=1)
 
 加载一个已经训练好的神经网络模型，该模型用于识别手写数字，然后读取一张包含手写数字的图像（上图），并对图像进行预处理，使其与模型的输入格式相匹配，最后通过该模型对预处理后的图像进行预测，输出预测的手写数字
+
+```bash
+pip install opencv-python
+```
+
+
 
 ```python
 import tensorflow as tf
@@ -209,6 +268,12 @@ prediction = model.predict(image_input)
 predicted_digit = np.argmax(prediction)
 print("预测结果:", predicted_digit)
 ```
+
+```bash
+预测结果: 6
+```
+
+
 
 
 
