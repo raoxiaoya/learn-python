@@ -50,4 +50,4 @@ test_loss, test_acc = model.evaluate(x_test, y_test)
 print("测试集损失:", test_loss)
 print("测试集准确率:", test_acc)
 # 保存模型
-model.save('model.keras')
+model.save('handwritten_digit.keras')
