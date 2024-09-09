@@ -11,7 +11,7 @@ image_resized = cv2.resize(image, (28, 28))
 image_normalized = image_resized / 255.0
 # 将图像转换为模型所需的形状 (1, 28, 28, 1)
 image_input = np.expand_dims(image_normalized, axis=0)
-image_input = np.expand_dims(image_input, axis=-1)
+image_input = np.expand_dims(image_input, axis=-1)
 prediction = model.predict(image_input)
 predicted_digit = np.argmax(prediction)
 print("预测结果:", predicted_digit)
