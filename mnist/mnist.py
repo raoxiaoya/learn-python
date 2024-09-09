@@ -34,16 +34,16 @@ model.compile(
 model.summary()
 
 # 训练模型
-import matplotlib.pyplot as plt
 # 记录训练过程中的损失值
 history = model.fit(x_train, y_train, epochs=20, validation_data=(x_test, y_test))
 # 绘制损失曲线
-plt.plot(history.history['loss'], label='Training Loss')
-plt.plot(history.history['val_loss'], label='Validation Loss')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.legend()
-plt.show()
+# import matplotlib.pyplot as plt
+# plt.plot(history.history['loss'], label='Training Loss')
+# plt.plot(history.history['val_loss'], label='Validation Loss')
+# plt.xlabel('Epoch')
+# plt.ylabel('Loss')
+# plt.legend()
+# plt.show()
 
 # 在测试集上评估模型性能
 test_loss, test_acc = model.evaluate(x_test, y_test)

@@ -269,6 +269,8 @@ conda是用来安装conda package，虽然大部分conda包是python的，但它
 ### 安装 Tensorflow2.4  
 tensorflow有两个版本：CPU，GPU；分别对应的是 tensorflow 和 tensorflow-gpu，后者需要安装CUDA 和 CUDNN。  
 
+版本冲突问题：tensorflow2.4要求numpy=1.19.5；而matplotlib 3.7.2和pandas 2.0.3都要求numpy>=1.20。
+
 各个版本和依赖信息参考地址：https://tensorflow.google.cn/install/source_windows#cpu
 
 ```bash
