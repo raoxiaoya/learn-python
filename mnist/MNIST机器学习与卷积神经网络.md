@@ -273,7 +273,7 @@ print("预测结果:", predicted_digit)
 预测结果: 6
 ```
 
-
+为什么在预测的时候输入矩阵要转换成`(1, 28, 28, 1)`呢，在TensorFlow或Keras这样的框架下，要求输入数据按照 `(batch_size, height, width, channels)` 的格式排列，第一个参数代表一张图片，最后的参数代表输入的通道数为1。
 
 
 
