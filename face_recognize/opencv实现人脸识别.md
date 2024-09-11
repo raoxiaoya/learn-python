@@ -2,10 +2,6 @@ opencv实现人脸识别
 
 
 
-https://mp.weixin.qq.com/s/LwROqBZx0EJmo26tAGERGQ
-
-
-
 #### 一、检测图片中的人脸
 
 
@@ -50,48 +46,49 @@ minSize 和 maxSize：定义了检测对象的最小和最大尺寸。这对于�
 
 
 
-```python
-import cv2
+`cv2`需要安装`opencv-python`
 
-# 读取一张图像
-# image = cv2.imread('20240910144915375.jpg')
-image = cv2.imread('ee0f844b67e1349aa706cace7e36c313.jpeg')
-
-# 1.将图像转换为灰度图像，因为Haar级联分类器需要处理灰度图像
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-
-# 2.加载模块自带的人脸检测器分类器
-faceCascade = cv2.CascadeClassifier(
-    cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-
-# 3.使用分类器检测图像中的人脸，返回一个包含人脸位置信息的列表
-faces = faceCascade.detectMultiScale(
-    gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
-
-# 4.打印检测到的人脸数量和坐标
-print(f'发现了{len(faces)}张人脸，他们的位置分别是：', faces)
-
-# 5.在原始图像上绘制矩形框来标记检测到的人脸
-for (x, y, w, h) in faces:
-    cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-# 6.显示标注后的图像
-cv2.imshow('Faces found', image)
-
-# 7.等待用户按键退出，然后关闭图像窗口
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-
+```bash
+pip install opencv-python
+opencv-python: 4.10.0.84
+Python 3.8.0
 ```
 
 
 
-#### 二、实时检测视频中的人脸
-
-数据源可以是视频文件，也可以是摄像头的视频流。在循环中一帧一帧读取图片并识别，并实时将标记的图片展示出来。
-
 ```python
 import cv2
+
+
+def detect_faces_in_picture():
+    # 读取一张图像
+    # image = cv2.imread('20240910144915375.jpg')
+    image = cv2.imread('20240911093212799.jpg')
+
+    # 1.将图像转换为灰度图像，因为Haar级联分类器需要处理灰度图像
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+    # 2.加载模块自带的人脸检测器分类器
+    faceCascade = cv2.CascadeClassifier(
+        cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
+    # 3.使用分类器检测图像中的人脸，返回一个包含人脸位置信息的列表
+    faces = faceCascade.detectMultiScale(
+        gray, scaleFactor=1.1, minNeighbors=6, minSize=(30, 30))
+
+    # 4.打印检测到的人脸数量和坐标
+    print(f'发现了{len(faces)}张人脸，他们的位置分别是：', faces)
+
+    # 5.在原始图像上绘制矩形框来标记检测到的人脸
+    for (x, y, w, h) in faces:
+        cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+    # 6.显示标注后的图像
+    cv2.imshow('Faces found', image)
+
+    # 7.等待用户按键退出，然后关闭图像窗口
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 
 def detect_faces_in_video():
@@ -100,13 +97,13 @@ def detect_faces_in_video():
         cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
     # 2.打开摄像头，检测实时摄像头流
-    # cap = cv2.VideoCapture(0)
+    # camera = cv2.VideoCapture(0)
     # 0 表示默认摄像头，如果有多个摄像头，可以尝试不同的索引
     # 检测视频文件，参数为视频路径
-    cap = cv2.VideoCapture('quanchanhong.mp4')
+    camera = cv2.VideoCapture('ee0f844b67e1349aa706cace7e36c313.mp4')
     while True:
         # 3.读取摄像头的一帧图像
-        ret, frame = cap.read()
+        ret, frame = camera.read()
         if not ret:
             print("无法获取帧")
             break
@@ -130,15 +127,152 @@ def detect_faces_in_video():
             break
 
     # 9.释放摄像头资源并关闭所有窗口
-    cap.release()
+    camera.release()
     cv2.destroyAllWindows()
 
 
-# 运行函数
-detect_faces_in_video()
+if __name__ == '__main__':
+    detect_faces_in_picture()
 
 ```
+
+```bash
+发现了4张人脸，他们的位置分别是： [[300 272  50  50]
+ [556 298  57  57]
+ [464 220  57  57]
+ [401 305  53  53]]
+```
+
+![image-20240911093051188](D:\dev\php\magook\trunk\server\md\img\image-20240911093051188.png)
+
+#### 二、实时检测视频中的人脸
+
+数据源可以是视频文件，也可以是摄像头的视频流。在循环中一帧一帧读取图片并识别，并实时将标记的图片展示出来。
 
 
 
 #### 三、识别出人脸是谁
+
+这里需要先上传素材进行训练，然后才能识别出图片对应的标签，即需要训练数据和测试数据。将人脸图像先录入系统，每一个人录一张即可，通过训练，使标签和图片对应上，即 Y=f(x)，其中x为图像，y为标签。
+
+```bash
+pip install opencv-contrib-python
+否则会报错
+AttributeError: module 'cv2' has no attribute 'face'
+```
+
+```python
+import os
+import cv2
+import numpy as np
+
+face_cascade = cv2.CascadeClassifier(
+    cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+
+
+def trainedModel():
+    '''
+    训练模型
+    '''
+    face_list_path = "./face_list/"
+    c = 0
+    X, y = [], []
+    for filename in os.listdir(face_list_path):
+        filepath = os.path.join(face_list_path, filename)
+        gray = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE)
+
+        faces = face_cascade.detectMultiScale(
+            gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))
+        a, b, w, h = faces[0]
+        img_face = cv2.rectangle(gray, (a, b), (a + w, b + h), (255, 0, 0), 2)
+        img_face = cv2.resize(img_face[b:b+h, a:a+w], (200, 200))
+
+        # cv2.imshow('Faces found', img_face)
+        # cv2.waitKey(0)
+
+        # X.append(np.asarray(img_face, dtype=np.uint8))
+        X.append(img_face)
+        y.append(c)
+
+        c = c + 1
+
+    # 训练
+    model = cv2.face.EigenFaceRecognizer_create()
+    model.train(np.asarray(X), np.asarray(y))
+    model.save('recognize_face.xml')
+
+
+def recognizeFace(model, img):
+    '''
+    识别
+    '''
+    face_list_name = ['huge', 'liudehua', 'zhangyi']
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(
+        gray, scaleFactor=1.1, minNeighbors=6, minSize=(30, 30))
+    for (a, b, w, h) in faces:
+        img_face = cv2.rectangle(gray, (a, b), (a + w, b + h), (255, 0, 0), 2)
+        img_face = cv2.resize(img_face[b:b+h, a:a+w], (200, 200))
+
+        # cv2.imshow('Faces found', img_face)
+        # cv2.waitKey(0)
+
+        result = model.predict(img_face)
+
+        print("Label: %s, Name: %s, Confidence: %.2f" %
+              (result[0], face_list_name[result[0]], result[1]))
+
+        # 展示
+        img = cv2.rectangle(img, (a, b), (a + w, b + h), (255, 0, 0), 2)
+        cv2.putText(img, face_list_name[result[0]], (a, b - 20),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, 255, 2)
+
+    cv2.imshow("face", img)
+
+
+def recognizeFaceFromPicture(model):
+    '''
+    从图片中识别
+    '''
+    recognizeFace(model, cv2.imread('huge2.jpg'))
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+def recognizeFaceFromVideo(model):
+    '''
+    从视频中识别
+    '''
+    camera = cv2.VideoCapture(0)
+    while (True):
+        ret, img = camera.read()
+        if not ret:
+            print("无法获取帧")
+            break
+        recognizeFace(model, img)
+
+    camera.release()
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+
+if __name__ == '__main__':
+    # 训练模型
+    # trainedModel()
+
+    # 加载已经训练好的模型
+    model = cv2.face.EigenFaceRecognizer_create()
+    model.read('recognize_face.xml')
+
+    recognizeFaceFromPicture(model)
+
+```
+
+face_list 目录下有三个文件用来训练：huge.jpg, liudehua.jpg, zhangyi.jpg。
+
+huge2.jpg 是胡歌的另一个图片。
+
+
+
+![image-20240911155628534](D:\dev\php\magook\trunk\server\md\img\image-20240911155628534.png)
+
