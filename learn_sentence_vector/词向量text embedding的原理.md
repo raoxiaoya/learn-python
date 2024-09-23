@@ -36,6 +36,36 @@ Word embedding已被证明非常强大和有效，现在NLP任务（如机器翻
 
 
 
+
+
+
+
+文章：https://zhuanlan.zhihu.com/p/384452959
+
+
+
+**Word2Vec必读paper**
+
+**1.** [[Word2Vec\] Efficient Estimation of Word Representations in Vector Space (Google 2013)](https://link.zhihu.com/?target=https%3A//github.com/wzhe06/Reco-papers/blob/master/Embedding/%5BWord2Vec%5D%20Efficient%20Estimation%20of%20Word%20Representations%20in%20Vector%20Space%20%28Google%202013%29.pdf)
+
+Google的Tomas Mikolov提出word2vec的两篇文章之一，这篇文章更具有综述性质，列举了NNLM、RNNLM等诸多词[向量模型](https://zhida.zhihu.com/search?q=向量模型&zhida_source=entity&is_preview=1)，但最重要的还是提出了CBOW和Skip-gram两种word2vec的模型结构。虽然词向量的研究早已有之，但不得不说还是Google的word2vec的提出让词向量重归主流，拉开了整个embedding技术发展的序幕。
+
+**2**. [[Word2Vec\] Distributed Representations of Words and Phrases and their Compositionality (Google 2013)](https://link.zhihu.com/?target=https%3A//github.com/wzhe06/Reco-papers/blob/master/Embedding/%5BWord2Vec%5D%20Distributed%20Representations%20of%20Words%20and%20Phrases%20and%20their%20Compositionality%20%28Google%202013%29.pdf)
+
+Tomas Mikolov的另一篇word2vec奠基性的文章。相比上一篇的综述，本文更详细的阐述了Skip-gram模型的细节，包括模型的具体形式和 Hierarchical Softmax和 Negative Sampling两种可行的训练方法。
+
+**3**. [[Word2Vec\] Word2vec Parameter Learning Explained (UMich 2016)](https://link.zhihu.com/?target=https%3A//github.com/wzhe06/Reco-papers/blob/master/Embedding/%5BWord2Vec%5D%20Word2vec%20Parameter%20Learning%20Explained%20%28UMich%202016%29.pdf)
+
+虽然Mikolov的两篇代表作标志的word2vec的诞生，但其中忽略了大量技术细节，如果希望完全读懂word2vec的原理和实现方法，比如[词向量](https://zhida.zhihu.com/search?q=词向量&zhida_source=entity&is_preview=1)具体如何抽取，具体的训练过程等，强烈建议大家阅读UMich Xin Rong博士的这篇针对word2vec的解释性文章。
+
+Word2Vec算法原理：
+
+
+
+
+
+
+
 参考TODO：
 
 word2vec & doc2vec & text2vec
@@ -43,9 +73,24 @@ https://blog.csdn.net/qq_16633405/article/details/80480300
 
 词向量embedding的原理
 https://blog.csdn.net/mpk_no1/article/details/72458003
-https://zhuanlan.zhihu.com/p/384452959
+
 https://blog.csdn.net/u010280923/article/details/130555437
 
 论文：
 
 https://github.com/wzhe06/Reco-papers
+
+
+
+
+
+最近引入的连续 Skip-gram 模型是一种有效的方法
+学习捕获大量精确句法和语义词关系的高质量分布式向量表示。在本文中，我们介绍
+提高向量质量和训练的几个扩展
+速度。通过对常用词进行二次采样，我们获得了显着的加速和
+还要学习更有规律的单词表示。我们还描述了分层 softmax 的一个简单替代方案，称为负采样。
+词表示的一个固有限制是它们对词序的漠不关心
+以及他们无法代表惯用短语。例如，的含义
+「加拿大」和「航空」不能轻易结合获得「加拿大航空」
+通过这个例子，我们展示了一种在文本中查找短语的简单方法，并显示
+学习数百万个短语的良好向量表示是可能的
