@@ -28,6 +28,8 @@ class Dog():
         '''
         类方法
         需要 cls
+        使其可以再不创建类实例的情况下调用方法，跟普通函数一样：Dog.class_method()
+        特点在于它有一个隐藏参数cls，就是class的意思，通过cls可以get/set类的属性：cls.publicAttr=''
         '''
         print('类方法')
 
@@ -36,7 +38,7 @@ class Dog():
         '''
         静态方法
         不需要 self
-        使其可以再不创建类实例的情况下调用方法，跟普通函数一样
+        使其可以再不创建类实例的情况下调用方法，跟普通函数一样：Dog.static_method()
         '''
         print('静态方法')
 

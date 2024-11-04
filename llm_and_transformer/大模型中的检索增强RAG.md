@@ -1,16 +1,4 @@
-大模型中的检索增强RAG，Embedding，Index，Rerank，BGE，Faiss
-
-
-
-技术分享 基于RAG+Rerank调优让大模型更懂你！https://zhuanlan.zhihu.com/p/718220120
-
-改善大模型 RAG 效果：结合检索和重排序模型 https://zhuanlan.zhihu.com/p/748202826
-
-从《红楼梦》的视角看大模型知识库 RAG 服务的 Rerank 调优 https://zhuanlan.zhihu.com/p/699339963
-
-Rerank——RAG中百尺竿头更进一步的神器，从原理到解决方案 https://zhuanlan.zhihu.com/p/676996307
-
-知识库问答，数据越多效果越好吗？ https://mp.weixin.qq.com/s/jo1TsJGx_cVVNpJEqSbgUQ
+大模型中的检索增强RAG，Embedding，Index，Rerank，BGE，Faiss，chunking
 
 
 
@@ -260,7 +248,7 @@ print(f"total number of vectors: {index.ntotal}")
 
 所谓相似性搜索是指通过比较多维空间中数据之间的相似性来搜索与输入数据最相似的目标数据。例如人脸识别中，通过比较人脸向量之前的距离来识别当前人脸与哪张人脸相似。因此，该技术被广泛应用于信息检索、计算机视觉、数据分析等领域。如果要检索的数据很多时，那么就需要一个向量检索库来加速检索。Faiss包含多种相似性搜索方法，并提供cpu和gpu版本支持。Faiss的优势在于通过较小的精度损失提高向量相似度的检索速度和减少内存使用量。
 
-在生产环境中就需要使用专业的向量数据库，比如Elasticsearch。
+在生产环境中就需要使用专业的向量数据库，比如Elasticsearch，Pinecone。
 
 本例就是将Faiss作为向量数据库使用，将数据集的向量存入其中，然后进行检索匹配。
 
@@ -757,7 +745,7 @@ print(query_engine.query(your_query).response)
 
 #### 4、Elasticsearch中的相似度检索算法
 
-ES使用的相似度计算算法为kNN（k-nearest neighbor），即 K-最近邻算法，说的是每个样本都可以用它最接近的k个邻居来代表。kNN算法的核心思想是如果一个样本在特征空间中的k个最相邻的样本中的大多数属于某一个类别，则该样本也属于这个类别，并具有这个类别上样本的特性。该方法在确定分类决策上只依据最邻近的一个或者几个样本的类别来决定待分样本所属的类别。 kNN方法在类别决策时，只与极少量的相邻样本有关。由于kNN方法主要靠周围有限的邻近的样本，而不是靠判别类域的方法来确定所属类别的，因此对于类域的交叉或重叠较多的待分样本集来说，kNN方法较其他方法更为适合。
+ES使用的相似度计算算法为kNN（k-nearest neighbor），同时ES底层使用HNSW构建图数据结构以加速向量检索。
 
 https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search.html
 
@@ -765,7 +753,7 @@ https://www.elastic.co/guide/en/elasticsearch/reference/current/knn-search.html
 
 ### 二、Rerank
 
-相似和相关是由本质区别，即向量的相似度很高并不意味着相关度很高，比如这两句话“大连理工大学是个很不错的大学” & “大连医科大学是个很不错的大学”。
+相似和相关是由本质区别，即向量的相似度很高并不意味着相关度很高，比如这两句话“大连理工大学是个很不错的大学” & “大连医科大学是个很不错的大学”。它们相似度很高但相关度很低。
 
 LLM能接收到的tokens是有限制的，在检索出来的topk中，如果正确的信息排在很后面，有可能会被LLM忽视掉。
 
@@ -778,6 +766,8 @@ LLM能接收到的tokens是有限制的，在检索出来的topk中，如果正�
 知识库数据量大的场景下两阶段优势非常明显，如果只用**一阶段embedding**检索， 随着数据量增大会出现检索退化的问题，如下图中绿线所示， 二阶段**rerank重排**后能实现准确率稳定增长，即数据越多，效果越好。
 
 ![image-20241017171911148](D:\dev\php\magook\trunk\server\md\img\image-20241017171911148.png)
+
+
 
 **Rerank模型**可以采用BERT等预训练模型进行微调。训练数据可以是RAG生成的初步回答和正确答案，通过比较初步回答和正确答案，训练Rerank模型学会如何对初步回答进行排序。针对对话系统，Concat Query的训练数据可以进一步提高模型对连续对话的理解和排序能力。
 
@@ -815,11 +805,7 @@ Rerank 本质是一个 Cross-Encoder 的模型。Cross-Encoder 能让两个文�
 
 因为速度慢。这里说的速度慢不是 cross-encoder 的模型比 bi-encoder 的模型速度慢。关键在于 bi-encoder 可以离线计算海量文本块的向量化表示，把他们暂存在向量数据库中，在问答检索的时候只需要计算一个 query 的向量化表示就可以了。拿着 query 的向量表示去库里找最相似的文本即可。
 
-
-
 但是 cross-encoder 需要实时计算两个文本块的相关度，如果候选文本有几万条，每一条都需要和 query 一起送进 BERT 模型中算一遍，需要实时算几万次。这个成本是非常巨大的。
-
-
 
 rerank模型的选择，除了上面提到的BGE系列，还有有道的BCE模型[bce-reranker-base_v1](https://huggingface.co/maidalun1020/bce-reranker-base_v1)，综合下载量和测评结果，bge-reranker-v2-m3 看来是当前最佳选择，bge-reranker-large 和 bce-reranker-base_v1 可以作为备选。
 
@@ -827,20 +813,26 @@ rerank模型的选择，除了上面提到的BGE系列，还有有道的BCE模�
 
 ### 三、优化
 
-对于RAG的效果，我们之前已经做了很多方面的优化了，包括：
+#### 1、文档分块chunking
 
-- **优化内容提取的方法**：从源头解决内容提取的有效性，包括文本内容、表格内容（保留制表符）和图片内容（OCR识别）等，可以参看我之前的文章[《完全指南——使用python提取PDF中的文本信息（包括表格和图片OCR）》](https://link.zhihu.com/?target=https%3A//www.luxiangdong.com/2023/10/05/extract/)；
-- **优化[chunking](https://zhida.zhihu.com/search?content_id=238573818&content_type=Article&match_order=1&q=chunking&zhida_source=entity)**：从最开始的512固定长度切分，到后面的句切分，再到后面的NLTK和[SpaCy](https://zhida.zhihu.com/search?content_id=238573818&content_type=Article&match_order=1&q=SpaCy&zhida_source=entity)，具体可参见我之前写的[《最详细的文本分块(Chunking)方法——可以直接影响基于LLM应用效果》](https://link.zhihu.com/?target=https%3A//www.luxiangdong.com/2023/09/20/chunk/)；
-- **再之后是优化[embedding模型](https://zhida.zhihu.com/search?content_id=238573818&content_type=Article&match_order=1&q=embedding模型&zhida_source=entity)**：Embedding模型的选择其实很魔性，我们在优化过程中也会不断否定之前的一些判断。比如我们最开始用m3e，后面用bge，再后面还用了通义千问的embedding模型。总体来说，收费的通义千问还是好一些，但是不明显，有些方面却不如bge。最近一朋友也向我推荐了Jina embedding模型，不过他们的中文模型需要12月份才出来；
-- **我们还优化了其他一些过程**：比如[prompt模板](https://zhida.zhihu.com/search?content_id=238573818&content_type=Article&match_order=1&q=prompt模板&zhida_source=entity)、关键词摘要、元数据存储等。
+从最开始的512固定长度切分，到后面的句切分，再到后面的NLTK和[SpaCy](https://zhida.zhihu.com/search?content_id=238573818&content_type=Article&match_order=1&q=SpaCy&zhida_source=entity)，具体可参见 [《最详细的文本分块(Chunking)方法——可以直接影响基于LLM应用效果》](https://www.luxiangdong.com/2023/09/20/chunk/)
 
-
-
-#### 1、文档分块
-
-**优化[chunking](https://zhida.zhihu.com/search?content_id=238573818&content_type=Article&match_order=1&q=chunking&zhida_source=entity)**：从最开始的512固定长度切分，到后面的句切分，再到后面的NLTK和[SpaCy](https://zhida.zhihu.com/search?content_id=238573818&content_type=Article&match_order=1&q=SpaCy&zhida_source=entity)，具体可参见我之前写的[《最详细的文本分块(Chunking)方法——可以直接影响基于LLM应用效果》](https://link.zhihu.com/?target=https%3A//www.luxiangdong.com/2023/09/20/chunk/)；
+关于tokens如何计算，不同的模型有不同的定义。有的模型一个字符为一个token，有的模型是多个字符。因为LLM对tokens有限制，所以分块的大小也需要仔细斟酌。
 
 
 
-2、如何计算要花多少tokens
 
+
+
+
+参考文章
+
+[技术分享 基于RAG+Rerank调优让大模型更懂你！](https://zhuanlan.zhihu.com/p/718220120)
+
+[改善大模型 RAG 效果：结合检索和重排序模型](https://zhuanlan.zhihu.com/p/748202826) 
+
+[从《红楼梦》的视角看大模型知识库 RAG 服务的 Rerank 调优](https://zhuanlan.zhihu.com/p/699339963)
+
+[Rerank——RAG中百尺竿头更进一步的神器，从原理到解决方案](https://zhuanlan.zhihu.com/p/676996307)
+
+[知识库问答，数据越多效果越好吗？](https://mp.weixin.qq.com/s/jo1TsJGx_cVVNpJEqSbgUQ)
