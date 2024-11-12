@@ -124,44 +124,59 @@ http://pypi.mirrors.ustc.edu.cn/simple/ 中国科学技术大学
 ```
 
 ### anaconda自带的工具
-anaconda navigator 可视化界面  
-anaconda prompt  命令行  
-anaconda powershell prompt  命令行  
-jupyter notebook  网页版编辑器，运行器，交互式  
+anaconda navigator 可视化界面
+
+anaconda prompt  命令行
+
+anaconda powershell prompt  命令行
+
+jupyter notebook  网页版编辑器，运行器，交互式
+
 spyder 编辑器
 
 ### 启动jupyter notebook的方式
-anaconda3操作界面  
-命令行输入 jupyter notebook  
+anaconda3操作界面
+
+命令行输入 jupyter notebook
+
 系统开始菜单  
 
 ### jupyter notebook 工作目录设置
-默认是在C盘的用户目录下，我们需要修改以下两个地方  
-1、在命令行下执行 jupyter notebook --generate-config 得到配置文件地址，编辑此文件 c.NotebookApp.notebook_dir = 'D:/dev/php/magook/trunk/server/learn-python'  注意要将反斜线换成斜线  
 
-2、在系统开始菜单找到jupyter notebook，右键，更多，打开文件位置，右键 Jupyter Notebook，属性，删除【目标】这一栏中双引号以及双引号中的内容，确定
+默认情况下，你在哪个目录下运行 jupyter notebook，那么工作目录就是哪个。
+
+但是你也可以指定一个固定的工作目录，这样无论你在哪里运行 jupyter notebook 命令，工作目录都不会变。设置固定工作目录的方法如下：
+1、在命令行下执行 jupyter notebook --generate-config 得到配置文件地址`C:\Users\Administrator.DESKTOP-TPJL4TC\.jupyter\jupyter_notebook_config.py`，编辑此文件 c.NotebookApp.notebook_dir = 'D:/dev/php/magook/trunk/server/learn-python'  注意要将反斜线换成斜线  
+
+2、在系统开始菜单找到jupyter notebook，右键，更多，打开文件位置，右键 Jupyter Notebook，属性，目标，里面的默认值是`D:\ProgramData\Anaconda3\python.exe d:\ProgramData\Anaconda3\cwp.py d:\ProgramData\Anaconda3 d:\ProgramData\Anaconda3\python.exe d:\ProgramData\Anaconda3\Scripts\jupyter-notebook-script.py "%USERPROFILE%"`，最后一段`"%USERPROFILE%"`的意思就是将当前目录作为工作目录，因此要将这一段删掉。
+
+
+
+实际上，使用默认就行，不用做修改。
+
+
 
 ### jupyter notebook 一些使用
-1、在cell中输入代码，ctrl+enter 运行，或点击运行按钮，都只会运行光标所在的cell。  
-2、可以设置cell的类型，代码，markdown，标题。  
-3、命令模式和编辑模式。  
-4、安装 nb_conda  
+1、在cell中输入代码，ctrl+enter 运行，或点击运行按钮，都只会运行光标所在的cell。
+
+2、可以设置cell的类型，代码，markdown，标题。
+3、命令模式和编辑模式。
+4、安装 nb_conda
 	conda install nb_conda  重新启动 jupyter notebook 发现发现菜单栏多了一个conda选项，
 	nb_conda能够将conda创建的环境与jupyter notebook 关联，便于在使用jupyter notebook时在不同的环境下工作。 
 
-
-5、更好的支持markdown文件  
-conda install -c conda-forge jupyter_contrib_nbextensions   
-conda install -c conda-forge jupyter_nbextensions_configurator  
+5、更好的支持markdown文件
+conda install -c conda-forge jupyter_contrib_nbextensions 
+conda install -c conda-forge jupyter_nbextensions_configurator
 重启 jpyter notebook 菜单栏增加了 nbextensions 栏目，勾选里面的 Table of contents 扩展，于是记事本界面上多了一个Table of contents 按钮， 
 
-6、在jupyter notebook中运行终端命令  
-1、在cell中以感叹号开头的命令视为终端命令。如 !dir  
-2、在jupyter notebook中打开终端：File -> New -> terminal   失败？？  
+6、在jupyter notebook中运行终端命令
+1、在cell中以感叹号开头的命令视为终端命令。如 !dir
+2、在jupyter notebook中打开终端：File -> New -> terminal   失败？？
 关闭终端会话，Running->关闭  
 
-7、在jupyter notebook中include 别的 .py 文件  
-在cell中输入 %load 文件位置  可以引入此文件内容  
+7、在jupyter notebook中include 别的 .py 文件
+在cell中输入 %load 文件位置  可以引入此文件内容
 在cell中输入 %run 文件位置  可以直接运行此文件  
 
 
@@ -244,15 +259,15 @@ optional arguments:
 
 每一个环境都有自己的一系列包，相互不影响，比如在命令行下我选择 base 环境，在编辑器我选择 tensorflow 环境，在jupyter选择 base 环境。  
 
-vscode中切换环境：  
-    方法1：编辑器右下角会展示出当前的环境，点击可选择。  
-    方法2：ctrl+shift+p -> 输入 python select interpreter  
+vscode中切换环境：
+    方法1：编辑器右下角会展示出当前的环境，点击可选择。
+    方法2：ctrl+shift+p -> 输入 python select interpreter
 以上设置只是满足编辑器的语法解析，但是在vscode的命令行执行代码的时候还是要执行 activate tensorflow2.4 进入环境
 
 ### 包管理  
 先进入一个环境再说
 
-conda install/remove/update/search xxxx  
+conda install/remove/update/search xxxx
 或者 pip install/uninstall xxx  
 
 pip是用来安装python包的，安装的是python wheel或者源代码的包。从源码安装的时候需要有编译器的支持，pip也不会去支持python语言之外的依赖项。
@@ -315,9 +330,9 @@ pip install tensorflow-gpu==2.4
 
 
 ### 电子书
-Python - 100天从新手到大师  
+Python - 100天从新手到大师
 https://www.cntofu.com/book/160/Day01-15/Day01/%E5%88%9D%E8%AF%86Python.md  
-《Python编程从入门到实践》  
+《Python编程从入门到实践》
  https://pan.baidu.com/s/1o9wJq0y  密码：12od  
 
 ### 基本用法
