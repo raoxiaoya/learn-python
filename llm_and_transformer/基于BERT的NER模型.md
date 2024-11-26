@@ -80,11 +80,55 @@ https://www.jianshu.com/p/1d6689851622
 
 -------
 
+https://www.cnblogs.com/chrystal/p/16584722.html
+
+
+
+- [GitHub - wcharczuk/go-chart: go chart is a basic charting library in go.](https://github.com/wcharczuk/go-chart)
+- [GitHub - vicanso/go-charts: A charts library for Golang](https://github.com/vicanso/go-charts)
+- [GitHub - vdobler/chart: Provide basic charts in go](https://github.com/vdobler/chart)
+- [GitHub - gonum/plot: A repository for plotting and visualizing data](https://github.com/gonum/plot)
+- [GitHub - go-echarts/go-echarts: 🎨 The adorable charts library for Golang](https://github.com/go-echarts/go-echarts)
+
+
+
+golang调用webview2渲染出go-echarts图表
 
 
 
 
-------------------------------------------------------
+
+python的绘图库matplotlib是怎么实现的？？
+
+
+
+
+
+| Platform | Technologies                                                 |
+| -------- | ------------------------------------------------------------ |
+| Linux    | [GTK](https://gtk.org/), [WebKitGTK](https://webkitgtk.org/) |
+| macOS    | Cocoa, [WebKit](https://webkit.org/)                         |
+| Windows  | [Windows API](https://docs.microsoft.com/en-us/windows/win32/apiindex/windows-api-list), [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) |
+
+
+
+plt.show()
+
+![image-20241120170834107](D:\dev\php\magook\trunk\server\md\img\image-20241120170834107.png)
+
+占内存159M
+
+
+
+在 [awesome-go](https://github.com/avelino/awesome-go#gui) 节点下有不少开发界面的库, 大部分是基于web, gtk, qt跨平台的, 也有基于sciter go绑定的[go-sciter](https://github.com/sciter-sdk/go-sciter), 基于原生包装的跨平台的库[ui](https://github.com/andlabs/ui), 只支持Windows桌面端的[walk](https://github.com/lxn/walk)
+
+https://www.jianshu.com/p/aa484d03ee9c
+
+
+
+
+
+---
 
 
 
@@ -92,7 +136,21 @@ https://www.jianshu.com/p/1d6689851622
 
 
 
-----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
 
 
 

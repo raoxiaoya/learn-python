@@ -3,8 +3,8 @@ import tensorflow as tf
 # print(tf.__version__) # 2.4.0
 
 # 查看物理设备
-cpus = tf.config.experimental.list_physical_devices('CPU') # 显示CPU信息
-gpus = tf.config.experimental.list_physical_devices('GPU') # 显示GPU信息
+cpus = tf.config.list_physical_devices('CPU') # 显示CPU信息
+gpus = tf.config.list_physical_devices('GPU') # 显示GPU信息
 print(cpus)
 print(gpus)
 
