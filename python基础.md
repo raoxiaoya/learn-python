@@ -64,7 +64,7 @@ from a.b.c import d
 
 比如有目录结构如下：`/a/b/c/d.py`，我们就需要创建`/a/b/c/__init__.py`文件，总之，如果哪个目录下的文件想要被导出，就需要创建这个文件，文件内容可以为空。
 
-当然`__init__.py`可以写内容，重新定义导入路径，比如：`/pyflink/table/changelog_mode.py` 文件中有一个类 `ChangelogMode`，正常的导入写法是`from pyflink.table.changelog_mode import ChangelogMode`，现在可以在`__init__.py`中重新定义
+当然`__init__.py`可以写内容，重新定义导入路径，比如：`/pyflink/table/changelog_mode.py` 文件中有一个类 `ChangelogMode`，正常的导入写法是`from pyflink.table.changelog_mode import ChangelogMode`，现在可以在`__init__.py`中重新定义。我们在导入一个包时，实际上是导入了它的__init__.py文件。
 ```python
 from __future__ import absolute_import
 
