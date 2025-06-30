@@ -262,7 +262,11 @@ optional arguments:
 vscode中切换环境：
     方法1：编辑器右下角会展示出当前的环境，点击可选择。
     方法2：ctrl+shift+p -> 输入 python select interpreter
-以上设置只是满足编辑器的语法解析，但是在vscode的命令行执行代码的时候还是要执行 activate tensorflow2.4 进入环境
+以上设置只是满足编辑器的语法解析，但是在vscode的命令行执行代码的时候还是要执行 activate tensorflow2.19.0 进入环境
+
+移除环境：conda env remove --name tensorflow2.19.0
+
+保存环境：命令行切换到某个环境，然后 pip freeze > requirements.txt
 
 ### 包管理  
 先进入一个环境再说
@@ -281,19 +285,20 @@ conda是用来安装conda package，虽然大部分conda包是python的，但它
 最后，pip的包跟conda不完全重叠，有些包只能通过其中一个装。
 
 
+### 如何查看某个包的依赖
+首先在 pypi 上可以查看 python 的版本，以及其仓库地址，一般是 github，我们在 github 的源码里会看到 requirements.txt
+
+
 ### 安装 Tensorflow2.4  
 tensorflow有两个版本：CPU，GPU；分别对应的是 tensorflow 和 tensorflow-gpu，后者需要安装CUDA 和 CUDNN。  
 
-版本冲突问题：tensorflow2.4要求numpy=1.19.5；而matplotlib 3.7.2和pandas 2.0.3都要求numpy>=1.20。
-
-各个版本和依赖信息参考地址：https://tensorflow.google.cn/install/source_windows#cpu
+文档：https://tensorflow.google.cn/install/source_windows#cpu
+pypi文档：https://pypi.org/project/tensorflow/
 
 ```bash
 1、创建环境并激活
-conda create -n tensorflow2.4 python==3.8
-	会将 base 环境中的包在 tensorflow2.4 环境再安装一份
-	
-conda activate tensorflow2.4
+conda create -n tensorflow2.19.0 python==3.10.16
+conda activate tensorflow2.19.0
 
 2、装依赖
 pip install numpy matplotlib Pillow scikit-learn pandas
@@ -302,7 +307,7 @@ pip install numpy matplotlib Pillow scikit-learn pandas
 
 搜索一下 https://pypi.tuna.tsinghua.edu.cn/simple/tensorflow/
 
-pip install tensorflow==2.4 
+pip install tensorflow==2.19.0
 
 4、测试
 打开python 交互命令 
@@ -312,19 +317,17 @@ pip install tensorflow==2.4
 2023-08-24 16:03:32.991074: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
 ```
 
-### 安装 Tensorflow-gpu2.4 
+### 安装 Tensorflow-gpu2.19.0
 
 各个版本和依赖信息参考地址：https://tensorflow.google.cn/install/source_windows#gpu
 
 ```bash
 
-conda create -n tensorflow-gpu2.4 python==3.8
-
-conda activate tensorflow-gpu2.4
+conda create -n tensorflow-gpu2.19.0 python==3.10.16
+conda activate tensorflow-gpu2.19.0
 
 pip install numpy matplotlib Pillow scikit-learn pandas
-
-pip install tensorflow-gpu==2.4 
+pip install tensorflow-gpu==2.19.0 
 
 ```
 
