@@ -10,7 +10,8 @@ from modelscope.outputs import OutputKeys
 from modelscope.pipelines import pipeline
 from modelscope.utils.constant import Tasks
 
-skin_retouching = pipeline(Tasks.skin_retouching,model='iic/cv_unet_skin-retouching')
+skin_retouching = pipeline(Tasks.skin_retouching,
+                           model='iic/cv_unet_skin-retouching')
 
 img_path = 'skin_retouching_examples_1.jpg'
 dst_path = 'skin_retouching_examples_1_beauty.jpg'

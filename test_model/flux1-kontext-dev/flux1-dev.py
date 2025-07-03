@@ -5,16 +5,21 @@ https://mp.weixin.qq.com/s/GJ3vQUeZeiSCJ1DJdR_fzA
 https://mp.weixin.qq.com/s/4ivr_tA9OaHljRfjMhRIDg
 https://mp.weixin.qq.com/s/9mmaddEVs7KYTHtoHNBcjg
 
+官方平台：playground.bfl.ai，可以在线体验
+
+fp8和fp16代表浮点数精度floating point，8位和16位，量化版本
+
+运行需要20G显存左右，GPU
 
 ComfyUI适配的模型
 
 Diffusion Model
 https://huggingface.co/Comfy-Org/flux1-kontext-dev_ComfyUI/resolve/main/split_files/diffusion_models/flux1-dev-kontext_fp8_scaled.safetensors
 
-VAE
+VAE Model
 https://huggingface.co/Comfy-Org/Lumina_Image_2.0_Repackaged/blob/main/split_files/vae/ae.safetensors
 
-Text Encoder
+Text Encoder 两个
 https://huggingface.co/comfyanonymous/flux_text_encoders/blob/main/clip_l.safetensors
 https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors 
 或 
@@ -25,6 +30,11 @@ Comfy-Org 与 comfyanonymous 有什么区别
 
 Black Forest Libs（黑森林实验室） 的模型
 https://huggingface.co/black-forest-labs/FLUX.1-Kontext-dev
+
+目前 Flux.1 Kontext 只能用英文提示词。
+
+
+在 ConfyUI 中，点击左侧菜单的 “加载模板工作流”，在侧边栏找到 “Flux”，你就能看到官方预设好的两个 Kontext 工作流。这两个工作流，一个叫 Basic，一个叫 Grouped。Basic 工作流：基础的工作流，支持单图和双图输入。Grouped 工作流：这个版本更简洁，有一个大的Image Edit节点，让你的工作区清爽无比。
 
 '''
 

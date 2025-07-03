@@ -11,7 +11,7 @@ from modelscope.outputs import OutputKeys
 from modelscope.pipelines import pipeline
 from modelscope.utils.constant import Tasks
 
-img_cartoon = pipeline(Tasks.image_portrait_stylization, 
+img_cartoon = pipeline(Tasks.image_portrait_stylization,
                        model='iic/cv_unet_person-image-cartoon_compound-models')
 # 图像本地路径
 img_path = '20250630105841.png'
